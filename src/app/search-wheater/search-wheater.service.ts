@@ -4,24 +4,31 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class SearchWheaterService {
+  MAX_DAY=5;
   key = "976136126d553c05d8890ac35365a99f";
-  beginUrl ="https://api.openweathermap.org/data/2.5/weather?q="
+  beginUrl ="https://api.openweathermap.org/data/2.5/forecast?q="
   url:string;
+  wheatherList:String[][];
+
   constructor(private http: Http) { 
   }
 
 
    getTheWheater(place)
   {
+    let result;
+  
     this.url= this.beginUrl + place +"&APPID="+this.key;
-    console.log(this.url)
-   this.http.get(this.url)
-    .subscribe(
-      (res: Response) => 
-        {
-          console.log(res);
-        }
-    );
+      this.http.get(this.url).toPromise().then(response => 
+    {console.log(response)
+    result=response.json();
+    for(let i =0;i<this.MAX_DAY;i++)
+      {
+          getWheaterList(result)
+      }
+    });
 
   }
+
+  
 }

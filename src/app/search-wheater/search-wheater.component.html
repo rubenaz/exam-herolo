@@ -4,3 +4,17 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.getTheWheater(place.value)">Search The Wheater</button>
   </form>
 </nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Day</th>
+      <th scope="col">Temperature</th>
+      <th scope="col">Humidity</th>
+      <th scope="col">Wheater</th>
+    </tr>
+  </thead>
+ <tbody *ngFor="let client of clientsData; let i = index">
+      <tr class="table-primary">
+      <th scope="row">{{i}}</th>
+  </tbody>
+</table>
