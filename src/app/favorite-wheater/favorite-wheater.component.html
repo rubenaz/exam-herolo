@@ -1,3 +1,20 @@
-<p>
-favorite-wheater works!
-</p>
+<h3> YOUR FAVORITES PLACES</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Place</th>
+      <th scope="col">Temp</th>
+      <th scope="col">Wheater</th>
+    </tr>
+  </thead>
+ <tbody *ngFor="let fav of favorite | keyvalue">
+     <a routerLink="/"><tr class="table-primary">
+      <th scope="row">{{fav.key}}</th>
+      <th scope="row">{{fav.value.place}}</th>
+      <th scope="row">{{fav.value.temp}}</th>
+      <th scope="row">{{fav.value.main}}</th>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="deleteFromFavorite(fav.key)">Delete</button>
+      </tr></a>
+  </tbody>
+</table>

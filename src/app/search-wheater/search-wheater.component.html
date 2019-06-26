@@ -7,6 +7,9 @@
 <div *ngIf="service.placeNotExist else loaded">
   <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
 </div>
+<div *ngIf="service.placeEmpty else loaded">
+  <h1>PLEASE ENTER A CITY/COUNTRY</h1>
+</div>
 <div *ngIf="service.loading else loaded">
   <h1>{{service.place}}</h1>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(place.value)">Add to Favorite</button>
