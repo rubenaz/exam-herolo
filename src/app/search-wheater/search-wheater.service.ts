@@ -11,7 +11,8 @@ export class SearchWheaterService {
   key = "976136126d553c05d8890ac35365a99f";
   beginUrl ="https://api.openweathermap.org/data/2.5/forecast?q="
   url:string;
-  wheatherList:any[][];
+  wheatherList:any[];
+  loading=false;
 
   constructor(private http: Http) { 
   }
@@ -19,53 +20,57 @@ export class SearchWheaterService {
 
    getTheWheater(place)
   {
-    this.wheatherList= this.generate(this.wheatherList,this.MAX_DAY,this.NUM_OF_DETAILS)
     console.log(this.wheatherList)
     let result;
     let count=0;
   
     this.url= this.beginUrl + place +"&APPID="+this.key;
     console.log(this.url);
-      this.http.get(this.url).subscribe(response => 
+      this.http.get(this.url).toPromise().then(response => 
     {console.log(response.json())
     result=response.json();
+    this.generate(this.wheatherList,result.list.length)
+
     let apiDate=result.list[0].dt_txt.split(" ")[0];
     let date = this.getDate(count)
-    let i=0;
-    this.getWheaterList(result.list[0],count)
-    count++;
-    while(count<=5)
+    let i =0;
+    while(typeof result.list[i] != 'undefined')
     {
-       apiDate=result.list[i].dt_txt.split(" ")[0];
-       date = this.getDate(count)
+      apiDate=result.list[i].dt_txt.split(" ")[0]
+      date = this.getDate(count)
       if(apiDate!=date)
-      {
-            this.getWheaterList(result.list[i],count);
-            count++;
-      }
+        count++;
+      this.getWheaterList(result.list[i],count,i);
       i++;
     }
-  
+    console.log(this.wheatherList);
+    this.loading=true;
     });
 
   }
-  getWheaterList(result,count)
+  getWheaterList(result,count,i)
   {
-      this.wheatherList[count]["date"]=2;
+    console.log("NUM OF ROWS : " + i + "\t NUM OF COUNT : " + count);
+    console.log(result);
+      this.wheatherList[i].id=count;
+      this.wheatherList[i].date=result.dt_txt;
+      this.wheatherList[i].temp=result["main"].temp;
+      this.wheatherList[i].temp_min=result["main"].temp_min;
+      this.wheatherList[i].temp_max=result["main"].temp_max;
+      this.wheatherList[i].main=result.weather[0].main;
   }
   getDate(count)
   {
         var dte = new Date();
-    dte.setDate(dte.getDate() - count);
+    dte.setDate(dte.getDate() + count);
     return formatDate(dte, 'yyyy-MM-dd', 'en');
   }
-  generate(array,MAX_DAYS,NUM_OF_DETAILS)//generate the double array (data)
+  generate(array,rows,)//generate the double array (data)
     {
-        array=[];
-        for(let j=0 ; j< MAX_DAYS;j++){
-            array[j]=new array(NUM_OF_DETAILS)
+        this.wheatherList=[];
+        for(let j=0 ; j< rows;j++){
+            this.wheatherList[j]={id:"",date: "",temp : "", temp_min: "",temp_max:"",main:""};
         }
-        return array
     }
 
   

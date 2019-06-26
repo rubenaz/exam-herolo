@@ -4,17 +4,24 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.getTheWheater(place.value)">Search The Wheater</button>
   </form>
 </nav>
+<div *ngIf="service.loading else loaded">
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Day</th>
-      <th scope="col">Temperature</th>
-      <th scope="col">Humidity</th>
+      <th scope="col">Date</th>
+      <th scope="col">Temperature Max</th>
+      <th scope="col">Temperature Min</th>
       <th scope="col">Wheater</th>
+
     </tr>
   </thead>
- <tbody *ngFor="let client of clientsData; let i = index">
+ <tbody *ngFor="let wheater of service.wheatherList; let i = index">
       <tr class="table-primary">
-      <th scope="row"></th>
+      <th scope="row">{{wheater.date}}</th>
+      <th scope="row">{{wheater.temp_max}}</th>
+      <th scope="row">{{wheater.temp_min}}</th>
+      <th scope="row">{{wheater.main}}</th>
+      </tr>
   </tbody>
 </table>
+</div>
