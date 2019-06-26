@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchWheaterService } from './search-wheater.service';
 
+
 @Component({
   selector: 'app-search-wheater',
   templateUrl: './search-wheater.component.html',

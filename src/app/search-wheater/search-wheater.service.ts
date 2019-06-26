@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http,Response,HttpModule, RequestOptions, Headers,} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http'; 
+import {HttpClient, HttpHeaders,HttpErrorResponse} from '@angular/common/http'; 
 import {formatDate} from '@angular/common';
 
 
@@ -12,22 +12,25 @@ export class SearchWheaterService {
   beginUrl ="https://api.openweathermap.org/data/2.5/forecast?q="
   url:string;
   wheatherList:any[];
-  loading=false;
+  loading;
+  place;
+  placeNotExist;
 
   constructor(private http: Http) { 
+    this.getTheWheater("tel aviv");
   }
-
 
    getTheWheater(place)
   {
-    console.log(this.wheatherList)
+    this.place=place;
     let result;
     let count=0;
+    this.loading=false;
+    this.placeNotExist=false;
   
-    this.url= this.beginUrl + place +"&APPID="+this.key;
-    console.log(this.url);
+    this.url= this.beginUrl + place +"&units=metric&APPID="+this.key;
       this.http.get(this.url).toPromise().then(response => 
-    {console.log(response.json())
+    {console.log(response.status)
     result=response.json();
     this.generate(this.wheatherList,result.list.length)
 
@@ -43,15 +46,36 @@ export class SearchWheaterService {
       this.getWheaterList(result.list[i],count,i);
       i++;
     }
-    console.log(this.wheatherList);
     this.loading=true;
-    });
+    }).catch((err: HttpErrorResponse) => {
+        // simple logging, but you can do a lot more, see below
+        this.placeNotExist=true;
+        console.error('An error occurred:', err.error);
+      });;
 
   }
+
+  //======================================================================================
+
+  removeFromFavorite(place)
+{
+    localStorage.removeItem(place);
+}
+
+  //======================================================================================
+
+addTofavorite(place)
+{
+    localStorage.setItem(place,place);
+    console.log(localStorage.length);
+
+}
+  
+  //======================================================================================
+  //===============================HELP FUNCTIONS=========================================
+  //======================================================================================
   getWheaterList(result,count,i)
   {
-    console.log("NUM OF ROWS : " + i + "\t NUM OF COUNT : " + count);
-    console.log(result);
       this.wheatherList[i].id=count;
       this.wheatherList[i].date=result.dt_txt;
       this.wheatherList[i].temp=result["main"].temp;
@@ -59,19 +83,19 @@ export class SearchWheaterService {
       this.wheatherList[i].temp_max=result["main"].temp_max;
       this.wheatherList[i].main=result.weather[0].main;
   }
+  //======================================================================================
   getDate(count)
   {
         var dte = new Date();
     dte.setDate(dte.getDate() + count);
     return formatDate(dte, 'yyyy-MM-dd', 'en');
   }
+  //======================================================================================
   generate(array,rows,)//generate the double array (data)
     {
         this.wheatherList=[];
         for(let j=0 ; j< rows;j++){
             this.wheatherList[j]={id:"",date: "",temp : "", temp_min: "",temp_max:"",main:""};
         }
-    }
-
-  
+    }  
 }

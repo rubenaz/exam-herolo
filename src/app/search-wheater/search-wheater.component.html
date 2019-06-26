@@ -4,10 +4,17 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.getTheWheater(place.value)">Search The Wheater</button>
   </form>
 </nav>
+<div *ngIf="service.placeNotExist else loaded">
+  <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
+</div>
 <div *ngIf="service.loading else loaded">
+  <h1>{{service.place}}</h1>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(place.value)">Add to Favorite</button>
+   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(place.value)">Remove from Favorite</button>
 <table class="table">
   <thead>
     <tr>
+    
       <th scope="col">Date</th>
       <th scope="col">Temperature Max</th>
       <th scope="col">Temperature Min</th>
