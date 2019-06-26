@@ -1,23 +1,23 @@
 <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
-    <input #place class="form-control mr-sm-2" type="search" placeholder="Get City/Country Name" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.getTheWheater(place.value)">Search The Wheater</button>
+    <input #city class="form-control mr-sm-2" type="search" placeholder="Get City/Country Name" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="getTheWheater(city.value)">Search The Wheater</button>
   </form>
 </nav>
-<div *ngIf="service.placeNotExist else loaded">
+<div *ngIf="placeNotExist else loaded">
   <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
 </div>
-<div *ngIf="service.placeEmpty else loaded">
+<div *ngIf="placeEmpty else loaded">
   <h1>PLEASE ENTER A CITY/COUNTRY</h1>
 </div>
-<div *ngIf="service.loading else loaded">
-  <h1>{{service.place}}</h1>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(place.value)">Add to Favorite</button>
-   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(place.value)">Remove from Favorite</button>
+<div *ngIf="loading else loaded">
+  <h2>{{place}}</h2>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="addTofavorite(city.value)">Add to Favorite</button>
+   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="removeFromFavorite(city.value)">Remove from Favorite</button>
 <table class="table">
   <thead>
     <tr>
-    
+  
       <th scope="col">Date</th>
       <th scope="col">Temperature Max</th>
       <th scope="col">Temperature Min</th>
@@ -25,7 +25,7 @@
 
     </tr>
   </thead>
- <tbody *ngFor="let wheater of service.wheatherList; let i = index">
+ <tbody *ngFor="let wheater of wheatherList; let i = index">
       <tr class="table-primary">
       <th scope="row">{{wheater.date}}</th>
       <th scope="row">{{wheater.temp_max}}</th>
