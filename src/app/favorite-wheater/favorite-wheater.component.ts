@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,7 +12,7 @@ export class FavoriteWheaterComponent implements OnInit {
 
   favorite=new Map();
 ;
-  constructor() { }
+  constructor(private router :Router) { }
 
   deleteFromFavorite(id)
   {
@@ -19,12 +21,26 @@ export class FavoriteWheaterComponent implements OnInit {
     this.ngOnInit();
   }
 
+  getTheWeather(place)
+  {
+    this.router.navigate(['/'], { queryParams: { place: place.value.place } });
+  }
+  correctPlace(fav)
+  {
+    if(fav.value.place == undefined)
+      return false;
+      else
+      return true;
+
+  }
+
   ngOnInit() {
+    this.favorite.clear();
     for (let i = 0; i < localStorage.length; i++) {
         this.favorite.set(localStorage.key(i),JSON.parse( localStorage.getItem(localStorage.key(i))));   
 }
         console.log(this.favorite);
-        
+
   }
 
 }

@@ -22,6 +22,6 @@ import { SearchWheaterService } from './search-wheater/search-wheater.service';
     HttpClientModule,HttpModule ],
   declarations: [ AppComponent, TitleComponent,NavBarComponent, SearchWheaterComponent, FavoriteWheaterComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [SearchWheaterService]
+  providers: [SearchWheaterService,FavoriteWheaterComponent]
 })
 export class AppModule { }

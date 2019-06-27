@@ -3,7 +3,11 @@ import { SearchWheaterService } from './search-wheater.service';
 import {Http,Response,HttpModule, RequestOptions, Headers,} from '@angular/http';
 import {HttpClient, HttpHeaders,HttpErrorResponse} from '@angular/common/http'; 
 import {formatDate} from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+
+import 'rxjs/add/operator/filter';
+
 
 
 @Component({
@@ -12,21 +16,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-wheater.component.css']
 })
 export class SearchWheaterComponent implements OnInit {
-  MAX_DAY=5;
-  NUM_OF_DETAILS=5
+  DEFAULT_PLACE="tel aviv"
   key = "976136126d553c05d8890ac35365a99f";
   beginUrl ="https://api.openweathermap.org/data/2.5/forecast?q="
   url:string;
   wheatherList:any[];
   loading;
-  place;
+  place:string="";
   placeNotExist;
   placeEmpty
 
-
-
-
-  constructor(public service : SearchWheaterService,private http: Http) { }
+  constructor(public service : SearchWheaterService,private http: Http,private route: ActivatedRoute,private router :Router) { 
+    //this.router.navigate(['/'], { queryParams: { place: 'tel aviv' } });
+  
+  }
 getTheWheater(place)
   {
     this.place="";
@@ -40,7 +43,7 @@ getTheWheater(place)
       this.placeEmpty=true;
       return;
      }
-  
+  this.router.navigate(['/'], { queryParams: { place: place } });
     this.url= this.beginUrl + place +"&units=metric&APPID="+this.key;
       this.http.get(this.url).toPromise().then(response => 
     {console.log(response.status)
@@ -72,17 +75,39 @@ getTheWheater(place)
 
   removeFromFavorite(place)
 {
-    localStorage.removeItem(place);
+  if(place=="")
+  place=this.DEFAULT_PLACE;
+    console.log(place);
+    if(localStorage.getItem(this.wheatherList[0].id) != undefined)
+    localStorage.removeItem(this.wheatherList[0].id);
 }
   //======================================================================================
 
 addTofavorite(place)
 {
+   if(place=="")
+  place=this.DEFAULT_PLACE;
   let myObj = { id: this.wheatherList[0].id, place: this.place, temp:this.wheatherList[0].temp,main:this.wheatherList[0].main};//this.wheatherList[0] is the current wheater
   localStorage.setItem(this.wheatherList[0].id, JSON.stringify(myObj));
 }
+//======================================================================================
+
   ngOnInit() {
-  this.getTheWheater("tel aviv");
+    
+    this.route.queryParams
+      .filter(params => params.place)
+      .subscribe(params => {
+        console.log(params); // {order: "popular"}
+
+        this.place = params.place;
+        console.log(this.place); // popular
+        this.getTheWheater(this.place);
+      });
+      if(this.place.length==0)
+            this.router.navigate(['/'], { queryParams: { place: this.DEFAULT_PLACE } });
+
+
+      
   }
 
 
