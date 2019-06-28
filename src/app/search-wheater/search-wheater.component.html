@@ -1,9 +1,15 @@
-<nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <input #city class="form-control mr-sm-2" type="search" placeholder="Get City/Country Name" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="getTheWheater(city.value)">Search The Wheater</button>
-  </form>
-</nav>
+<div id="searchBar">
+<div class="input-group mb-3">
+  <input  #city type="text" class="form-control" placeholder="Get City/Country Name" aria-label="Get City/Country Name" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"(click)="getTheWheater(city.value)">Search The Wheater</button>
+  </div>
+</div>
+</div>
+
+
+
+
 <div *ngIf="placeNotExist else loaded">
   <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
 </div>

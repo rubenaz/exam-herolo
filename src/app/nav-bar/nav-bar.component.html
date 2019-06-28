@@ -1,6 +1,14 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-dark bg-dark">
   <form class="form-inline">
-    <button routerLink="/" class="btn btn-outline-success" type="button">Search Wheater</button> 
-    <a routerLink="/favorite"><button routerLink="/favorite"class="btn btn-sm btn-outline-secondary" type="button">Favorite Wheater</button></a>
+      <a routerLink="/" class="navbar-brand" href="#">
+    <img src="https://i.ibb.co/Jnk6k8w/sun-157126-640.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Weather
+  </a>
+   <ul class="navbar-nav mr-auto mt-2 mt-lg-">
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link" href="#">Search Wheater <span class="sr-only">(current)</span></a>
+         <a routerLink="/favorite" class="nav-link" href="#">Favorite Wheater</a>
+      </li>
+    </ul>
   </form>
-</nav>
+</nav> 
