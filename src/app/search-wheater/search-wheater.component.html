@@ -13,31 +13,12 @@
   <h1>PLEASE ENTER A CITY/COUNTRY</h1>
 </div>
 <div *ngIf="service.loading else loaded">
+  <div>
   <h2>{{place}}</h2>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(city.value)">Add to Favorite</button>
    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(city.value)">Remove from Favorite</button>
- <div *ngFor="let wheater of service.weatherMap | keyvalue">
-   <app-day-component [day]=wheater.key [temp]=wheater.value[0].temp [temp_max]=wheater.value[0].temp_max [temp_min]=wheater.value[0].temp_min [weather]=wheater.value[0].main ></app-day-component>
+  </div>
+ <div class="day" *ngFor="let wheater of service.weatherMap | keyvalue">
+   <app-day-component [day]=wheater.value[0].date [temp]=wheater.value[0].temp [temp_max]=wheater.value[0].temp_max [temp_min]=wheater.value[0].temp_min [weather]=wheater.value[0].main [image_url]="service.getWeatherImage(wheater.value[0].main)"></app-day-component>
  </div>
-
-<!--<table class="table">
-  <thead>
-    <tr>
-  
-      <th scope="col">Date</th>
-      <th scope="col">Temperature Max</th>
-      <th scope="col">Temperature Min</th>
-      <th scope="col">Wheater</th>
-
-    </tr>
-  </thead>
- <tbody *ngFor="let wheater of wheatherList; let i = index">
-      <tr class="table-primary">
-      <th scope="row">{{wheater.date}}</th>
-      <th scope="row">{{wheater.temp_max}}</th>
-      <th scope="row">{{wheater.temp_min}}</th>
-      <th scope="row">{{wheater.main}}</th>
-      </tr>
-  </tbody>
-</table>-->
 </div>

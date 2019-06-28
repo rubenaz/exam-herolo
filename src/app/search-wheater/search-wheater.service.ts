@@ -95,35 +95,6 @@ getDate()
     dte.setDate(dte.getDate());
     return formatDate(dte, 'yyyy-MM-dd', 'en');
   }
-/*  getWheaterList(result,count,i,id)
-  {
-      this.wheatherList[i].id=id;
-      this.wheatherList[i].num=count;
-      this.wheatherList[i].date=result.dt_txt;
-      this.wheatherList[i].temp=result["main"].temp;
-      this.wheatherList[i].temp_min=result["main"].temp_min;
-      this.wheatherList[i].temp_max=result["main"].temp_max;
-      this.wheatherList[i].main=result.weather[0].main;
-      return this.wheatherList
-  }
-
-  //======================================================================================
-  getDate(count)
-  {
-        var dte = new Date();
-    dte.setDate(dte.getDate() + count);
-    return formatDate(dte, 'yyyy-MM-dd', 'en');
-  }
-  //======================================================================================
-  generate(rows)//generate the double array (data)
-    {
-      this.rows=rows;
-        this.wheatherList=[];
-        for(let j=0 ; j< rows;j++){
-           this.wheatherList[j]={id: "",num:"",date: "",temp : "", temp_min: "",temp_max:"",main:""};
-        }
-        return this.wheatherList;
-    }  */
     generateTheMap(resultApi){
         let tempArray = [];
         let i=0;
@@ -147,6 +118,31 @@ getDate()
     }
     addDay(resultApi)
     {
-      return {date: resultApi.dt_txt,temp : resultApi["main"].temp, temp_min: resultApi["main"].temp_min,temp_max:resultApi["main"].temp_max,main:resultApi.weather[0].main}
+      return {date: this.translatetheDate(resultApi.dt_txt.split(" ")[0]),temp : resultApi["main"].temp, temp_min: resultApi["main"].temp_min,temp_max:resultApi["main"].temp_max,main:resultApi.weather[0].main}
+    }
+
+    getWeatherImage(weather_status)
+    {
+        switch(weather_status.toLowerCase()) {
+        case "clear":
+        return "https://i.ibb.co/Jnk6k8w/sun-157126-640.png"
+        case "clouds":
+            return "https://i.ibb.co/MshBkf8/clouds-37009-640.png"
+        case "rain":
+            return "https://i.ibb.co/YLT4BGN/rain-98538-640.png"
+        default:
+        return "";
+}
+    }
+    translatetheDate(date)
+    {
+      let currentDate=date.split("-")
+      let day =currentDate[2];
+      let month=currentDate[1];
+      let year =currentDate[0];
+      let d = new Date(year, month, day);
+      return d.toDateString();
+      console.log(d.toDateString()); // écrit Wed Jul 28 1993
+
     }
 }

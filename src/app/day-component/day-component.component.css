@@ -1,0 +1,16 @@
+body{
+  background:  #4db8ff;
+}
+.temp_min{
+  display:inline;
+  color:blue
+}
+.temp_max{
+  display:inline;
+  margin:2px;
+    color:red
+}
+h5{
+    display:inline;
+   
+}

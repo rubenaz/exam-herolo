@@ -12,6 +12,7 @@ export class DayComponentComponent implements OnInit {
   @Input() private temp_max;
   @Input() private temp_min;
   @Input() private weather;
+  @Input() private image_url;
 
 
   constructor() { }
