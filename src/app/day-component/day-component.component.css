@@ -1,16 +1,18 @@
-body{
-  background:  #4db8ff;
+.day
+{
+  text-align:center;
 }
 .temp_min{
-  display:inline;
   color:blue
 }
 .temp_max{
-  display:inline;
-  margin:2px;
+  margin:5px;
     color:red
 }
-h5{
-    display:inline;
-   
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:40px;
+  height:40px;
 }

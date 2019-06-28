@@ -1,24 +1,36 @@
+<h1 class="title">WEATHER BARSEARCH</h1>
+
 <div id="searchBar">
-<div class="input-group mb-3">
-  <input  #city type="text" class="form-control" placeholder="Get City/Country Name" aria-label="Get City/Country Name" aria-describedby="button-addon2">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"(click)="service.getTheWheater(city.value)">Search The Wheater</button>
+	<div class="input-group mb-3">
+		<input  #city type="text" class="form-control" placeholder="Get City/Country Name" aria-label="Get City/Country Name" aria-describedby="button-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2"(click)="service.getTheWheater(city.value)">Search The Wheater</button>
+    </div>
   </div>
 </div>
-</div>
+
 <div *ngIf="service.placeNotExist else loaded">
   <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
 </div>
+
 <div *ngIf="service.placeEmpty else loaded">
   <h1>PLEASE ENTER A CITY/COUNTRY</h1>
 </div>
-<div *ngIf="service.loading else loaded">
-  <div>
-  <h2>{{place}}</h2>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(city.value)">Add to Favorite</button>
-   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(city.value)">Remove from Favorite</button>
+
+<div class="container" *ngIf="service.loading else loaded">
+
+      <div class="title_city">
+
+    <span class="place">{{place}}</span>
+    <div class="buttonFavorite">
+
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(city.value)">Add to Favorite</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(city.value)">Remove from Favorite</button>
   </div>
- <div class="day" *ngFor="let wheater of service.weatherMap | keyvalue">
-   <app-day-component [day]=wheater.value[0].date [temp]=wheater.value[0].temp [temp_max]=wheater.value[0].temp_max [temp_min]=wheater.value[0].temp_min [weather]=wheater.value[0].main [image_url]="service.getWeatherImage(wheater.value[0].main)"></app-day-component>
+      </div>
+
+  <div class="day row"  *ngFor="let wheater of service.weatherMap | keyvalue">
+   <app-day-component class = "col-lg-3 col-md-3 col-xs-3" [day]=wheater.value[0].date [temp]=wheater.value[0].temp [temp_max]=wheater.value[0].temp_max [temp_min]=wheater.value[0].temp_min [weather]=wheater.value[0].main [image_url]="service.getWeatherImage(wheater.value[0].main)"></app-day-component>
  </div>
+
 </div>

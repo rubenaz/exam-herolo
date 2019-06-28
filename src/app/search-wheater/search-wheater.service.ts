@@ -76,7 +76,7 @@ getTheWheater(place)
 {
   if(place=="")
   place=this.DEFAULT_PLACE;
-    console.log(place);
+    
     if(localStorage.getItem(this.id) != undefined)
     localStorage.removeItem(this.id);
 }
@@ -87,7 +87,9 @@ addTofavorite(place)
    if(place=="")
     place=this.DEFAULT_PLACE;
   let myObj = { id: this.id, place: this.place, temp:this.weatherMap.get(this.getDate())[0].temp,main:this.weatherMap.get(this.getDate())[0].main};//this.wheatherList[0] is the current wheater
+  
   localStorage.setItem(this.id, JSON.stringify(myObj));
+  console.log(localStorage);
 }
 getDate()
   {
@@ -138,7 +140,7 @@ getDate()
     {
       let currentDate=date.split("-")
       let day =currentDate[2];
-      let month=currentDate[1];
+      let month=currentDate[1]-1;
       let year =currentDate[0];
       let d = new Date(year, month, day);
       return d.toDateString();

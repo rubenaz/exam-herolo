@@ -1,4 +1,4 @@
-<h3> YOUR FAVORITES PLACES</h3>
+<h3 class="title"> YOUR FAVORITES PLACES</h3>
 <table class="table">
   <thead>
     <tr>
@@ -9,14 +9,12 @@
     </tr>
   </thead>
  <tbody *ngFor="let fav of favorite | keyvalue">
-
-   <div *ngIf="correctPlace(fav)" (click) ="getTheWeather(fav)">
-     <tr class="table-primary">
+     <tr *ngIf="correctPlace(fav)" (click) ="getTheWeather(fav)" class="table">
       <th scope="row">{{fav.key}}</th>
       <th scope="row">{{fav.value.place}}</th>
       <th scope="row">{{fav.value.temp}}</th>
       <th scope="row">{{fav.value.main}}</th>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="deleteFromFavorite(fav.key)">Delete</button>
-      </tr></div>
+      <button class="btn btn-danger" type="submit" (click)="deleteFromFavorite(fav.key)">Delete</button>
+      </tr>
   </tbody>
 </table>
