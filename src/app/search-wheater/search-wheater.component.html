@@ -16,8 +16,8 @@
   <h2>{{place}}</h2>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(city.value)">Add to Favorite</button>
    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(city.value)">Remove from Favorite</button>
- <div *ngFor="let wheater of service.wheatherList; let i = index">
-   <app-day-component [day]=wheater.date [temp]=wheater.temp [temp_max]=wheater.temp_max [temp_min]=wheater.temp_min [weather]=wheater.main ></app-day-component>
+ <div *ngFor="let wheater of service.weatherMap | keyvalue">
+   <app-day-component [day]=wheater.key [temp]=wheater.value[0].temp [temp_max]=wheater.value[0].temp_max [temp_min]=wheater.value[0].temp_min [weather]=wheater.value[0].main ></app-day-component>
  </div>
 
 <!--<table class="table">
