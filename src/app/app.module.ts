@@ -13,6 +13,7 @@ import { SearchWheaterComponent } from './search-wheater/search-wheater.componen
 import { FavoriteWheaterComponent } from './favorite-wheater/favorite-wheater.component';
 import { RouterModule } from '@angular/router';
 import { SearchWheaterService } from './search-wheater/search-wheater.service';
+import { DayComponentComponent } from './day-component/day-component.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule,RouterModule.forRoot([
@@ -20,7 +21,7 @@ import { SearchWheaterService } from './search-wheater/search-wheater.service';
       {path :'favorite',component:FavoriteWheaterComponent}
   ]),
     HttpClientModule,HttpModule ],
-  declarations: [ AppComponent, TitleComponent,NavBarComponent, SearchWheaterComponent, FavoriteWheaterComponent ],
+  declarations: [ AppComponent, TitleComponent,NavBarComponent, SearchWheaterComponent, FavoriteWheaterComponent, DayComponentComponent ],
   bootstrap:    [ AppComponent ],
   providers: [SearchWheaterService,FavoriteWheaterComponent]
 })

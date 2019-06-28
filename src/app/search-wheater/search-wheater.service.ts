@@ -13,8 +13,7 @@ export class SearchWheaterService {
   }
   getWheaterList(result,count,i,id)
   {
-      this.wheatherList[i].id=id;493435360691
-
+      this.wheatherList[i].id=id;
       this.wheatherList[i].num=count;
       this.wheatherList[i].date=result.dt_txt;
       this.wheatherList[i].temp=result["main"].temp;
