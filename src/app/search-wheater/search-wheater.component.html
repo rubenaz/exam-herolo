@@ -2,21 +2,21 @@
 <div class="input-group mb-3">
   <input  #city type="text" class="form-control" placeholder="Get City/Country Name" aria-label="Get City/Country Name" aria-describedby="button-addon2">
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"(click)="getTheWheater(city.value)">Search The Wheater</button>
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"(click)="service.getTheWheater(city.value)">Search The Wheater</button>
   </div>
 </div>
 </div>
-<div *ngIf="placeNotExist else loaded">
+<div *ngIf="service.placeNotExist else loaded">
   <h1>THIS PLACE IS NOT EXIST PLEASE CHOOSE OTHER PLACE</h1>
 </div>
-<div *ngIf="placeEmpty else loaded">
+<div *ngIf="service.placeEmpty else loaded">
   <h1>PLEASE ENTER A CITY/COUNTRY</h1>
 </div>
-<div *ngIf="loading else loaded">
+<div *ngIf="service.loading else loaded">
   <h2>{{place}}</h2>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="addTofavorite(city.value)">Add to Favorite</button>
-   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="removeFromFavorite(city.value)">Remove from Favorite</button>
- <div *ngFor="let wheater of wheatherList; let i = index">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.addTofavorite(city.value)">Add to Favorite</button>
+   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="service.removeFromFavorite(city.value)">Remove from Favorite</button>
+ <div *ngFor="let wheater of service.wheatherList; let i = index">
    <app-day-component [day]=wheater.date [temp]=wheater.temp [temp_max]=wheater.temp_max [temp_min]=wheater.temp_min [weather]=wheater.main ></app-day-component>
  </div>
 
